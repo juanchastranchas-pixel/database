@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIA | PERCUSSOR PROTOCOL</title>
+    <title>SIA | CLASSIFIED NETWORK</title>
     <style>
         :root {
             --navy-dark: #000810;
@@ -25,70 +25,125 @@
             background: var(--navy-mid);
             padding: 35px; border-top: 4px solid var(--navy-bright);
             box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-            width: 550px; border-radius: 2px;
+            width: 550px; min-height: 400px; border-radius: 2px;
         }
 
-        h1 { font-size: 1em; letter-spacing: 3px; border-bottom: 1px solid var(--navy-bright); padding-bottom: 10px; color: white; }
+        h1 { font-size: 0.9em; letter-spacing: 3px; border-bottom: 1px solid var(--navy-bright); padding-bottom: 10px; color: white; text-align: center; }
 
         .file-item {
-            padding: 8px 12px; border-bottom: 1px solid rgba(0,51,102,0.3);
-            cursor: pointer; font-size: 0.85em; transition: 0.2s;
+            padding: 10px 15px; border-bottom: 1px solid rgba(0,51,102,0.3);
+            cursor: pointer; font-size: 0.8em; transition: 0.2s; display: flex; align-items: center;
         }
         .file-item:hover { background: rgba(0,51,102,0.5); color: var(--text-gold); }
-        
-        #display {
-            display: none; margin-top: 15px; padding: 15px;
+        .folder-icon { margin-right: 10px; }
+
+        #display-area {
+            margin-top: 15px; padding: 15px;
             background: rgba(0,0,0,0.5); border-left: 2px solid var(--text-gold);
-            font-family: 'Courier New', monospace; font-size: 0.8em; white-space: pre-wrap;
+            font-family: 'Courier New', monospace; font-size: 0.75em; white-space: pre-wrap;
+            min-height: 150px;
         }
 
-        input { background: #000; border: 1px solid var(--navy-bright); color: #00ff00; padding: 10px; width: 80%; text-align: center; margin-bottom: 10px; }
-        button { background: var(--navy-bright); color: white; border: none; padding: 8px 15px; cursor: pointer; font-size: 0.8em; }
+        input { background: #000; border: 1px solid var(--navy-bright); color: #00ff00; padding: 10px; width: 80%; text-align: center; margin-bottom: 10px; outline: none; }
+        button { background: var(--navy-bright); color: white; border: none; padding: 8px 15px; cursor: pointer; }
 
         #terminal { display: none; }
+        .back-btn { font-size: 0.7em; color: var(--text-gold); cursor: pointer; text-decoration: underline; margin-bottom: 10px; display: inline-block; }
     </style>
 </head>
 <body>
 
     <div id="login-container">
-        <h1>SIA - ACCESS POINT</h1>
-        <p style="font-size: 0.7em; color: var(--text-gold);">STRATEGIC INTELLIGENCE AGENCY</p>
-        <input type="password" id="pass" placeholder="CREDENTIALS">
-        <br>
-        <button onclick="unlock()">AUTHENTICATE</button>
+        <h1>SIA - SECURE UPLINK</h1>
+        <p style="text-align: center; font-size: 0.7em; color: var(--text-gold);">ENCRYPTION LEVEL: MIL-SPEC</p>
+        <div style="text-align: center;">
+            <input type="password" id="pass" placeholder="ACCESS KEY">
+            <br>
+            <button onclick="unlock()">INITIALIZE</button>
+        </div>
     </div>
 
     <div id="terminal">
-        <h1>VESPER MAIN_TERMINAL</h1>
-        <div style="text-align: left;">
-            <div class="file-item" onclick="show('CIVIL')">📂 PERFIL_INCOGNITO_V2.doc</div>
-            <div class="file-item" onclick="show('OPS')">📂 OPS_EN_CURSO_ABNER.log</div>
-            <div class="file-item" onclick="show('PLANOS')">📂 PLANOS_Y_LOGISTICA.db</div>
-            <div class="file-item" onclick="show('ANALISIS')">📂 ANALISIS_GUSTOS_SUJETO.dat</div>
+        <div id="nav-header">
+            <span class="back-btn" onclick="goBack()">[VOLVER]</span>
+            <h1 id="folder-title">ROOT / VESPER_FILES</h1>
         </div>
-        <div id="display"></div>
+        
+        <div id="file-list">
+            </div>
+
+        <div id="display-area" style="display: none;"></div>
+        
         <br>
-        <button onclick="location.reload()" style="background: #222;">TERMINATE</button>
+        <button onclick="location.reload()" style="background: #222; width: 100%;">TERMINATE CONNECTION</button>
     </div>
 
     <script>
+        const systemData = {
+            'root': [
+                { name: '📂 COBERTURA_CIVIL', type: 'folder', target: 'civil' },
+                { name: '📂 OPERACIONES_SIA', type: 'folder', target: 'ops' },
+                { name: '📂 PROTOCOLOS_NUCLEARES', type: 'folder', target: 'nest_1' }
+            ],
+            'civil': [
+                { name: '📄 IDENTIDAD_D_VESPER.doc', type: 'file', content: "> ESTRUCTURA FAMILIAR:\n- Madre: Liliana Olivares Flores\n- Padre: Alejandro Hernandez Hernandez\n- Hermanas: 4 Unidades Identificadas.\n- Perfil: Consultor Independiente." },
+                { name: '📄 PREFERENCIAS_SUJETO.dat', type: 'file', content: "> ANÁLISIS PSICOLÓGICO:\n- Simulación: Entrenamiento táctico en Terraria (Gestión de crisis).\n- Aptitudes: Trigonometría avanzada, Criptografía." }
+            ],
+            'ops': [
+                { name: '📄 OBJETIVO_ABNER.log', type: 'file', content: "> MISIÓN: CAPTURA PRIORITARIA\n- Sujeto: Abner\n- Estado: Localización en sector Delta.\n- Orden: Extracción inmediata." }
+            ],
+            'nest_1': [
+                { name: '📂 NIVEL_DE_ACCESO_A1', type: 'folder', target: 'nest_2' }
+            ],
+            'nest_2': [
+                { name: '📂 ARCHIVOS_MILITARES_REALES', type: 'folder', target: 'military' }
+            ],
+            'military': [
+                { name: '📄 EXPEDIENTE_RESTRINGIDO.enc', type: 'file', content: "> INFORMACIÓN MILITAR REAL - CLASIFICADO SIA\n- Rango: Operador de Élite / Comandante de Sector\n- Especialidad: Guerra Asimétrica y Operaciones Psicológicas.\n- Condecoraciones: Estrella de Vesper (Mención Honorífica).\n- Estado: En activo bajo cobertura civil nivel 5." }
+            ]
+        };
+
+        let currentPath = ['root'];
+
         function unlock() {
             if(document.getElementById("pass").value === "Kairo2026") {
                 document.getElementById("login-container").style.display = "none";
                 document.getElementById("terminal").style.display = "block";
-            } else { alert("ACCESS DENIED"); }
+                loadFolder('root');
+            } else { alert("CRITICAL ERROR: UNAUTHORIZED ACCESS"); }
         }
 
-        function show(id) {
-            const d = document.getElementById("display");
-            d.style.display = "block";
-            const files = {
-                'CIVIL': "> ESTRUCTURA DE COBERTURA:\n- Madre: Liliana Olivares Flores (Vínculo Directo)\n- Padre: Alejandro Hernandez Hernandez (Vínculo Directo)\n- Colaterales: 4 Unidades Femeninas (Hermanas)\n- Estado Civil: Incógnito nivel 4.",
-                'OPS': "> MISIÓN ACTUAL: OPERACIÓN PERCUSSOR\n- Objetivo: Captura de 'Abner'.\n- Estado: Localización en progreso.\n- Nivel de Amenaza: Delta.",
-                'PLANOS': "> DESPLIEGUE TÁCTICO:\n- Sector A-12: Puntos de extracción identificados.\n- Red Eléctrica: Planos de interferencia cargados.\n- Perímetro: Vigilancia por satélite activa.",
-                'ANALISIS': "> PERFIL DE PREFERENCIAS (ANALISTA KAIRO):\n- Simulación: Entrenamiento avanzado en 'Terraria' (Entornos hostiles).\n- Estética: Mantenimiento riguroso de imagen (Peinado reglamentario SIA).\n- Otros: Interés en trigonometría aplicada y desarrollo de sistemas criptográficos."
-            };
-            d.innerHTML = files[id];
+        function loadFolder(folderKey) {
+            const list = document.getElementById("file-list");
+            const display = document.getElementById("display-area");
+            const title = document.getElementById("folder-title");
+            
+            list.innerHTML = "";
+            display.style.display = "none";
+            title.innerText = "PATH: " + currentPath.join(" / ").toUpperCase();
+
+            systemData[folderKey].forEach(item => {
+                const div = document.createElement("div");
+                div.className = "file-item";
+                div.innerText = item.name;
+                div.onclick = () => {
+                    if(item.type === 'folder') {
+                        currentPath.push(item.target);
+                        loadFolder(item.target);
+                    } else {
+                        display.innerText = item.content;
+                        display.style.display = "block";
+                    }
+                };
+                list.appendChild(div);
+            });
+        }
+
+        function goBack() {
+            if(currentPath.length > 1) {
+                currentPath.pop();
+                loadFolder(currentPath[currentPath.length - 1]);
+            }
         }
     </script>
 </body>
