@@ -87,7 +87,7 @@
             ],
             'civil': [
                 { name: '📄 IDENTIDAD_D_VESPER.doc', type: 'file', content: "> ESTRUCTURA FAMILIAR:\n- Madre: Liliana Olivares Flores\n- Padre: Alejandro Hernandez Hernandez\n- Hermanas: 4 Unidades Identificadas.\n- Perfil: Consultor Independiente." },
-                { name: '📄 PREFERENCIAS_SUJETO.dat', type: 'file', content: "> ANÁLISIS PSICOLÓGICO:\n- Simulación: Entrenamiento táctico en Terraria (Gestión de crisis).\n- Aptitudes: Trigonometría avanzada, Criptografía." }
+                { name: '📄 PREFERENCIAS_SUJETO.dat', type: 'file', content: "> ANÁLISIS PSICOLÓGICO:\n- Simulación: Entrenamiento tactico en campo abierto (Gestión de armas y armamento).\n- Aptitudes: Trigonometría avanzada, Criptografía." }
             ],
             'ops': [
                 { name: '📄 OBJETIVO_ABNER.log', type: 'file', content: "> MISIÓN: CAPTURA PRIORITARIA\n- Sujeto: Abner\n- Estado: Localización en sector Delta.\n- Orden: Extracción inmediata." }
@@ -99,14 +99,14 @@
                 { name: '📂 ARCHIVOS_MILITARES_REALES', type: 'folder', target: 'military' }
             ],
             'military': [
-                { name: '📄 EXPEDIENTE_RESTRINGIDO.enc', type: 'file', content: "> INFORMACIÓN MILITAR REAL - CLASIFICADO SIA\n- Rango: Operador de Élite / Comandante de Sector\n- Especialidad: Guerra Asimétrica y Operaciones Psicológicas.\n- Condecoraciones: Estrella de Vesper (Mención Honorífica).\n- Estado: En activo bajo cobertura civil nivel 5." }
+                { name: '📄 EXPEDIENTE_RESTRINGIDO.enc', type: 'file', content: "> INFORMACIÓN MILITAR - CLASIFICADO SIA\n- Rango: Operador de Élite / Comandante de Sector\n- Especialidad: Guerra Asimétrica y Operaciones Psicológicas.\n- Condecoraciones: Estrella de Vesper (Mención Honorífica).\n- Estado: En activo bajo cobertura civil nivel 5." }
             ]
         };
 
         let currentPath = ['root'];
 
         function unlock() {
-            if(document.getElementById("pass").value === "Kairo2026") {
+            if(document.getElementById("pass").value === "kairo2026") {
                 document.getElementById("login-container").style.display = "none";
                 document.getElementById("terminal").style.display = "block";
                 loadFolder('root');
@@ -148,3 +148,4 @@
     </script>
 </body>
 </html>
+
