@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERCUSSOR PROTOCOL | Official Access</title>
+    <style>
+        :root {
+            --navy-dark: #000b14;
+            --navy-mid: #001a33;
+            --navy-bright: #004080;
+            --text-gold: #c5a059; /* Un toque dorado para mayor prestigio */
+            --text-light: #e6e6e6;
+        }
+
+        body {
+            background-color: var(--navy-dark);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #login-container, #file-explorer {
+            background: var(--navy-mid);
+            padding: 40px;
+            border-top: 5px solid var(--navy-bright);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            width: 450px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 1.2em;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+            color: white;
+            border-bottom: 1px solid var(--navy-bright);
+            padding-bottom: 15px;
+        }
+
+        .status-light {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: #ff0000; display: inline-block; margin-right: 10px;
+            box-shadow: 0 0 5px #ff0000;
+        }
+
+        input {
+            background: #00050a; border: 1px solid var(--navy-bright);
+            color: #00ff00; padding: 15px; width: 85%;
+            margin-bottom: 20px; font-family: monospace; outline: none;
+        }
+
+        button {
+            background: var(--navy-bright); color: white; border: none;
+            padding: 12px 30px; cursor: pointer; text-transform: uppercase;
+            font-weight: bold; letter-spacing: 2px; transition: 0.3s;
+        }
+
+        button:hover { background: #0059b3; box-shadow: 0 0 15px rgba(0,64,128,0.5); }
+
+        /* Estilo del Explorador de Archivos */
+        .file-list { text-align: left; margin-top: 20px; }
+        .file-item {
+            padding: 12px; border-bottom: 1px solid rgba(0,64,128,0.3);
+            cursor: pointer; transition: 0.2s; font-size: 0.9em;
+        }
+        .file-item:hover { background: rgba(0,64,128,0.4); color: var(--text-gold); }
+        
+        #content-display {
+            display: none; margin-top: 20px; padding: 15px;
+            background: rgba(0,0,0,0.3); border-left: 3px solid var(--text-gold);
+            font-family: monospace; text-align: left; font-size: 0.85em;
+        }
+
+        #file-explorer { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="login-container">
+        <h1><span class="status-light"></span>PERCUSSOR PROTOCOL</h1>
+        <p style="font-size: 0.7em; color: var(--text-gold);">DEPARTMENT OF INTELLIGENCE - CLASSIFIED</p>
+        <input type="password" id="pass" placeholder="ENTER ENCRYPTION KEY">
+        <br>
+        <button onclick="checkAccess()">Decrypt Identity</button>
+    </div>
+
+    <div id="file-explorer">
+        <h1>VESPER | MAIN_FRAME</h1>
+        <div class="file-list">
+            <div class="file-item" onclick="showFile('BIO')">📄 AGENT_DOSSIER_VESPER.pdf</div>
+            <div class="file-item" onclick="showFile('OPS')">📄 ACTIVE_MISSIONS_2026.log</div>
+            <div class="file-item" onclick="showFile('VAL')">🔒 PRIORITY_ASSET_VALERY.enc</div>
+        </div>
+        
+        <div id="content-display"></div>
+        <br>
+        <button onclick="location.reload()" style="background: #222; font-size: 0.7em;">TERMINATE SESSION</button>
+    </div>
+
+    <script>
+        function checkAccess() {
+            const p = document.getElementById("pass").value;
+            if(p === "Kairo2026") {
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("file-explorer").style.display = "block";
+            } else {
+                alert("WARNING: UNAUTHORIZED ACCESS DETECTED. TRACE INITIATED.");
+            }
+        }
+
+        function showFile(type) {
+            const display = document.getElementById("content-display");
+            display.style.display = "block";
+            if(type === 'BIO') {
+                display.innerHTML = "> Subject: David 'Vesper'<br>> Role: Senior Strategic Asset<br>> Status: Active Duty (Undercover)";
+            } else if(type === 'OPS') {
+                display.innerHTML = "> Op. Percussor: Ongoing<br>> Location: Central Sector<br>> Objective: Neutralize Narrative Anomalies";
+            } else if(type === 'VAL') {
+                display.innerHTML = "> Asset: Valery<br>> Clearance: Level 1 (Full Protection)<br>> Directive: Ensure safety at all costs. Do not reveal true identity.";
+            }
+        }
+    </script>
+</body>
+</html>
