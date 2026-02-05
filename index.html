@@ -3,102 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PERCUSSOR PROTOCOL | Official Access</title>
+    <title>SIA | PERCUSSOR PROTOCOL</title>
     <style>
         :root {
-            --navy-dark: #000b14;
-            --navy-mid: #001a33;
-            --navy-bright: #004080;
-            --text-gold: #c5a059;
-            --text-light: #e6e6e6;
+            --navy-dark: #000810;
+            --navy-mid: #001529;
+            --navy-bright: #003366;
+            --text-gold: #b89b5e;
+            --text-light: #cfd8dc;
         }
 
         body {
             background-color: var(--navy-dark);
             color: var(--text-light);
             font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; margin: 0; overflow: hidden;
         }
 
-        #login-container, #file-explorer {
+        #login-container, #terminal {
             background: var(--navy-mid);
-            padding: 40px;
-            border-top: 5px solid var(--navy-bright);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            width: 500px;
-            text-align: center;
-            border-radius: 4px;
+            padding: 35px; border-top: 4px solid var(--navy-bright);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            width: 550px; border-radius: 2px;
         }
 
-        h1 { font-size: 1.1em; letter-spacing: 4px; color: white; border-bottom: 1px solid var(--navy-bright); padding-bottom: 15px; }
+        h1 { font-size: 1em; letter-spacing: 3px; border-bottom: 1px solid var(--navy-bright); padding-bottom: 10px; color: white; }
 
-        .file-list { text-align: left; margin-top: 15px; max-height: 300px; overflow-y: auto; }
         .file-item {
-            padding: 10px; border-bottom: 1px solid rgba(0,64,128,0.2);
+            padding: 8px 12px; border-bottom: 1px solid rgba(0,51,102,0.3);
             cursor: pointer; font-size: 0.85em; transition: 0.2s;
         }
-        .file-item:hover { background: rgba(0,64,128,0.4); color: var(--text-gold); }
+        .file-item:hover { background: rgba(0,51,102,0.5); color: var(--text-gold); }
         
-        #content-display {
+        #display {
             display: none; margin-top: 15px; padding: 15px;
-            background: rgba(0,0,0,0.4); border-left: 3px solid var(--text-gold);
-            font-family: 'Courier New', monospace; text-align: left; font-size: 0.8em;
-            white-space: pre-wrap;
+            background: rgba(0,0,0,0.5); border-left: 2px solid var(--text-gold);
+            font-family: 'Courier New', monospace; font-size: 0.8em; white-space: pre-wrap;
         }
 
-        input { background: #00050a; border: 1px solid var(--navy-bright); color: #00ff00; padding: 12px; width: 80%; margin-bottom: 15px; text-align: center; }
-        button { background: var(--navy-bright); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
-        
-        #file-explorer { display: none; }
+        input { background: #000; border: 1px solid var(--navy-bright); color: #00ff00; padding: 10px; width: 80%; text-align: center; margin-bottom: 10px; }
+        button { background: var(--navy-bright); color: white; border: none; padding: 8px 15px; cursor: pointer; font-size: 0.8em; }
+
+        #terminal { display: none; }
     </style>
 </head>
 <body>
 
     <div id="login-container">
-        <h1>PERCUSSOR PROTOCOL</h1>
-        <p style="font-size: 0.7em; color: var(--text-gold);">SISTEMA DE ACCESO PRESIDENCIAL</p>
-        <input type="password" id="pass" placeholder="CLAVE DE ENCRIPTACIÓN">
+        <h1>SIA - ACCESS POINT</h1>
+        <p style="font-size: 0.7em; color: var(--text-gold);">STRATEGIC INTELLIGENCE AGENCY</p>
+        <input type="password" id="pass" placeholder="CREDENTIALS">
         <br>
-        <button onclick="checkAccess()">DECRIPTAR</button>
+        <button onclick="unlock()">AUTHENTICATE</button>
     </div>
 
-    <div id="file-explorer">
-        <h1>EXPEDIENTE: VESPER, D.</h1>
-        <div class="file-list">
-            <div class="file-item" onclick="showFile('GUSTOS')">📂 CUBIERTA_CIVIL_GUSTOS.dat</div>
-            <div class="file-item" onclick="showFile('MISIONES')">📂 REGISTRO_MISIONES_COMPLETADAS.log</div>
-            <div class="file-item" onclick="showFile('INCOGNITO')">📂 PERFIL_INCOGNITO_DAVID.doc</div>
-            <div class="file-item" onclick="showFile('VAL')">🔒 ACTIVO_PRIORITARIO_VALERY.enc</div>
+    <div id="terminal">
+        <h1>VESPER MAIN_TERMINAL</h1>
+        <div style="text-align: left;">
+            <div class="file-item" onclick="show('CIVIL')">📂 PERFIL_INCOGNITO_V2.doc</div>
+            <div class="file-item" onclick="show('OPS')">📂 OPS_EN_CURSO_ABNER.log</div>
+            <div class="file-item" onclick="show('PLANOS')">📂 PLANOS_Y_LOGISTICA.db</div>
+            <div class="file-item" onclick="show('ANALISIS')">📂 ANALISIS_GUSTOS_SUJETO.dat</div>
         </div>
-        
-        <div id="content-display"></div>
+        <div id="display"></div>
         <br>
-        <button onclick="location.reload()" style="background: #333; font-size: 0.7em;">CERRAR SESIÓN</button>
+        <button onclick="location.reload()" style="background: #222;">TERMINATE</button>
     </div>
 
     <script>
-        function checkAccess() {
+        function unlock() {
             if(document.getElementById("pass").value === "Kairo2026") {
                 document.getElementById("login-container").style.display = "none";
-                document.getElementById("file-explorer").style.display = "block";
-            } else { alert("ERROR DE AUTENTICACIÓN: RASTREO INICIADO."); }
+                document.getElementById("terminal").style.display = "block";
+            } else { alert("ACCESS DENIED"); }
         }
 
-        function showFile(type) {
-            const display = document.getElementById("content-display");
-            display.style.display = "block";
-            const data = {
-                'GUSTOS': "> INTERESES REGISTRADOS:\n- Alta cocina y protocolos de etiqueta.\n- Análisis de armamento antiguo.\n- Super fan de 'Terraria' (Utilizado como distracción táctica).",
-                'MISIONES': "> HISTORIAL DE CAMPO:\n- Op. Sombra (2024): Recuperación de activos.\n- Op. Vesper (2025): Infiltración exitosa en sector privado.\n- Op. Kairo: Fase final de despliegue web.",
-                'INCOGNITO': "> IDENTIDAD DE COBERTURA:\n- Nombre: David.\n- Profesión: Consultor Independiente.\n- Rasgo Distintivo: Peinado impecable (Mantenimiento de imagen para pasar desapercibido en círculos sociales altos).",
-                'VAL': "> SUJETO: VALERY\n- Prioridad: Máxima.\n- Estado: Bajo vigilancia de seguridad nivel 1.\n- NOTA: No permitir que descubra la conexión con Percussor Protocol."
+        function show(id) {
+            const d = document.getElementById("display");
+            d.style.display = "block";
+            const files = {
+                'CIVIL': "> ESTRUCTURA DE COBERTURA:\n- Madre: Liliana Olivares Flores (Vínculo Directo)\n- Padre: Alejandro Hernandez Hernandez (Vínculo Directo)\n- Colaterales: 4 Unidades Femeninas (Hermanas)\n- Estado Civil: Incógnito nivel 4.",
+                'OPS': "> MISIÓN ACTUAL: OPERACIÓN PERCUSSOR\n- Objetivo: Captura de 'Abner'.\n- Estado: Localización en progreso.\n- Nivel de Amenaza: Delta.",
+                'PLANOS': "> DESPLIEGUE TÁCTICO:\n- Sector A-12: Puntos de extracción identificados.\n- Red Eléctrica: Planos de interferencia cargados.\n- Perímetro: Vigilancia por satélite activa.",
+                'ANALISIS': "> PERFIL DE PREFERENCIAS (ANALISTA KAIRO):\n- Simulación: Entrenamiento avanzado en 'Terraria' (Entornos hostiles).\n- Estética: Mantenimiento riguroso de imagen (Peinado reglamentario SIA).\n- Otros: Interés en trigonometría aplicada y desarrollo de sistemas criptográficos."
             };
-            display.innerHTML = data[type] || "Archivo no encontrado.";
+            d.innerHTML = files[id];
         }
     </script>
 </body>
